@@ -25,6 +25,7 @@ library(nflverse)
 
 
 # Introduction
+We analysis the data in R(@citeR), with additional tools for support the analysis, including `tidyverse`[@citetidyverse], `here`[@citehere], `dplyr`[@citedplyr], `readr`[@citereadr], `modelsummary`[@citemodelsummary], `janitor`[@citejanitor], `tibble`[@citetibble], `ggplot2`[@citeggplot2], and research method is from @tellingstorieswithdata. 
 For the purposes of team management, coaching tactics, and general game analysis, it is essential to comprehend the elements affecting passing efficiency in professional football. A useful metric for assessing individual plays is the Expected Points Added (EPA) metric. Passing plays, which are a crucial component of the offensive strategies used by the modern NFL, are especially noteworthy. A range of performance indicators is usually employed by researchers and analysts in their attempts to model and predict EPA. In order to assess these indicators' ability to predict the EPA for passing plays, our research narrows them down.
 
 In our first model, we look at two important performance indicators for quarterbacks: passing yards and completions. Even though these factors have a direct impact on a team's ball-moving ability, they may not accurately capture the nuances of a play. To account for defensive pressure, which can seriously impede an offense's momentum, we added sacks as an extra predictor to our second model.
@@ -140,6 +141,7 @@ The 2023 NFL passing data analysis offers useful insights into the factors that 
 
 
 # References
+
 
 
 
