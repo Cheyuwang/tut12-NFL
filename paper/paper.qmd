@@ -1,0 +1,135 @@
+---
+title: "NFL prediction"
+subtitle: "NFL analyst 2023 regular seasons"
+author: 
+  - Che-Yu Wang
+thanks: "Code and data are available at: 
+date: April 1st 2024
+date-format: long
+abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+format: pdf
+number-sections: true
+bibliography: references.bib
+---
+
+```{r}
+#| include: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(tidymodels)
+library(modelsummary)
+library(nflverse)
+```
+
+
+# Introduction
+
+
+
+
+
+# Data 
+
+
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+nfl_2023 <- read.csv(here::here("data/analysis_data.csv"))
+nfl_2023_train <- nfl_2023 |> 
+  filter(week<=9)
+nfl_2023_test <- nfl_2023 |> 
+  filter(week>9)
+
+
+```
+
+Talk more about it.
+
+
+
+```{r}
+#| label: tbl-modelresults
+#| tbl-cap: "Model for the results"
+#| echo: false
+first_model_tidymodels <-
+  linear_reg() |>
+  set_engine(engine = "lm") |>
+  fit(
+    passing_epa ~ completions + attempts + passing_yards,
+    data = nfl_2023_train
+  )
+
+second_model_tidymodels <-
+  linear_reg() |>
+  set_engine(engine = "lm") |>
+  fit(
+    passing_epa ~ completions + attempts + passing_yards + sacks,
+    data = nfl_2023_train
+  )
+modelsummary(list("model_1" = first_model_tidymodels, "model 2" = second_model_tidymodels))
+
+```
+
+
+```{r}
+#| echo: false
+predicte_results <- second_model_tidymodels |>
+  predict(new_data = nfl_2023_test) |>
+  cbind(nfl_2023_test) |>
+  select(recent_team, week, passing_epa, .pred) |>
+  arrange(recent_team, week) |>
+  rename(predicted_passing_epa = .pred)
+
+
+  
+```
+'Talk way more about it
+
+
+
+# Model
+
+The goal of our modelling strategy is twofold. Firstly,...
+
+Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Ap
+
+## Model set-up
+
+Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
+
+\begin{align} 
+y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
+\mu_i &= \beta_0+ \beta_1 x_{1i} +\beta_2 x_{2i}
+\end{align}
+
+
+
+
+# Results
+```{r}
+
+
+ggplot(predicte_results, aes(x = passing_epa, y = predicted_passing_epa)) + 
+  geom_point() +
+  geom_abline(intercept = 0, slope = 1, color = "red")
+
+```
+
+# Discussion
+
+
+
+\newpage
+
+
+
+\newpage
+
+
+# References
+
+
